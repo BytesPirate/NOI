@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "3c3e24b8665163be",
+        "id": "fec09c600bf87782",
         "type": "tabs",
         "children": [
           {
-            "id": "ed34c0f2e7491987",
+            "id": "4cca649254f8c172",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -125,12 +125,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md"
               }
             }
           },
           {
-            "id": "75d33d7e6593a6bb",
+            "id": "1b8da2122a6ad436",
             "type": "leaf",
             "state": {
               "type": "tasks_timeline_view",
@@ -155,8 +155,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ed34c0f2e7491987",
+  "active": "4cca649254f8c172",
   "lastOpenFiles": [
+    "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
+    "Daily/2024-03-11.md",
     "Devops/Basic/Environment/Python/1.占位.md",
     "Devops/Basic/Environment/Go/1.占位.md",
     "Devops/Basic/Environment/Java/1.占位.md",
@@ -182,8 +184,6 @@
     "Devops/Middleware/Elastic/1.占位.md",
     "Devops/Monitor/Zabbix/1.占位.md",
     "Devops/Monitor/Prometheus/1.占位.md",
-    "Daily/2024-03-11.md",
-    "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
     "Devops/Basic/Environment",
     "Devops/CI&CD",
     "Devops/Monitor",
