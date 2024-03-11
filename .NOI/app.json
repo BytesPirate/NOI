@@ -1,0 +1,12 @@
+{
+  "promptDelete": false,
+  "strictLineBreaks": true,
+  "propertiesInDocument": "source",
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": true,
+  "showUnsupportedFiles": true,
+  "livePreview": true,
+  "showLineNumber": true,
+  "alwaysUpdateLinks": true,
+  "defaultViewMode": "source"
+}
