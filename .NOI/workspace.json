@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "fec09c600bf87782",
+        "id": "e0751ef3459d7121",
         "type": "tabs",
         "children": [
           {
-            "id": "4cca649254f8c172",
+            "id": "f3d01454031d1afd",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md"
-              }
+              "state": {}
             }
           },
           {
@@ -155,8 +147,15 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "4cca649254f8c172",
+  "active": "f3d01454031d1afd",
   "lastOpenFiles": [
+    "Algorithm/雪花算法/Snowflake.rs",
+    "Algorithm/雪花算法/新建 文本文档.txt",
+    "新建 文本文档.txt",
+    "Algorithm/雪花算法/雪花算法的逻辑.md",
+    "Algorithm/雪花算法.md",
+    "Algorithm/雪花算法",
+    "Algorithm",
     "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
     "Daily/2024-03-11.md",
     "Devops/Basic/Environment/Python/1.占位.md",
@@ -185,14 +184,7 @@
     "Devops/Monitor/Zabbix/1.占位.md",
     "Devops/Monitor/Prometheus/1.占位.md",
     "Devops/Basic/Environment",
-    "Devops/CI&CD",
-    "Devops/Monitor",
-    "Devops/Middleware",
-    "Devops/Database/Mysql",
     "Rust/未命名.md",
-    "001-Linux 系统优化/001-系统初始化.md",
-    "项目部署清单/代码部署/前端代码部署.md",
-    "项目部署清单/代码部署/后端代码（Php）部署.md",
     "Pasted image 20231227092509.png",
     "未命名.canvas"
   ]
