@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "588737d29490b5b9",
+        "id": "1f4217f9799a5d0d",
         "type": "tabs",
         "children": [
           {
-            "id": "dcbebdd9f157a6ed",
+            "id": "e631490b2a3860c5",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -122,7 +122,7 @@
             }
           },
           {
-            "id": "82adf4bce731e3ae",
+            "id": "097e83f3212c38c0",
             "type": "leaf",
             "state": {
               "type": "tasks_timeline_view",
@@ -147,33 +147,37 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "dcbebdd9f157a6ed",
+  "active": "081000effc9cac32",
   "lastOpenFiles": [
+    "Devops/Basic/Environment/Java/1.Java环境的安装以及配置.md",
+    "Devops/Basic/Nginx/1.Nginx的安装.md",
+    "Devops/Basic/Linux/2.常见的系统基础设置.md",
+    "Devops/Basic/Linux/1.系统初始化.md",
+    "Devops/Basic/Linux/3.LVM磁盘格式化以及挂载.md",
+    "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
+    "Daily/2024-03-12.md",
+    "Devops/Basic/Environment/Go/1.环境安装.md",
+    "Daily/2024-03-11.md",
+    "/Daily/2024-03-11.md",
+    "/Daily",
+    "Daily/2024, March 11 - Monday.md",
+    "Inbox.md",
+    "Devops/CI&CD/Gitlab Action",
+    "Devops/CI&CD/Github Action",
+    "README.md",
     "Devops/Others/xshell关键字高亮配置.hls",
     "Devops/Others/xshell高亮配置.hls",
     "Devops/Others/cnblogs.hls",
     "Devops/Others",
-    "Devops/Basic/Linux/2.常见的系统基础设置.md",
-    "Devops/Basic/Linux/1.系统初始化.md",
     "Algorithm/雪花算法/雪花算法的逻辑.md",
-    "Daily/2024-03-11.md",
     "Algorithm/雪花算法/Snowflake.rs",
     "Algorithm/雪花算法/新建 文本文档.txt",
     "新建 文本文档.txt",
     "Algorithm/雪花算法.md",
-    "Algorithm/雪花算法",
-    "Algorithm",
-    "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
     "Devops/Basic/Environment/Python/1.占位.md",
-    "Devops/Basic/Environment/Go/1.占位.md",
-    "Devops/Basic/Environment/Java/1.占位.md",
     "Devops/Basic/Environment/NodeJS/1.占位.md",
     "Devops/Basic/Environment/PHP/1.占位.md",
-    "Devops/Basic/Linux/3.LVM磁盘格式化以及挂载.md",
     "Devops/Monitor/Altermanager/1.占位.md",
-    "Devops/Basic/Environment/Python",
-    "Devops/Basic/Environment/PHP",
-    "Devops/Basic/Nginx/1.占位.md",
     "Devops/CI&CD/Jenkins/1.占位.md",
     "Devops/Database/Mysql/1.占位.md",
     "Devops/Middleware/Supervisor/1.占位.md",
@@ -181,10 +185,6 @@
     "Devops/Middleware/RabbitMQ/1.占位.md",
     "Devops/Middleware/Nacos/1.占位.md",
     "Devops/Middleware/MinIO/1.占位.md",
-    "Devops/Middleware/Elastic/1.占位.md",
-    "Devops/Monitor/Zabbix/1.占位.md",
-    "Devops/Monitor/Prometheus/1.占位.md",
-    "Rust/未命名.md",
     "Pasted image 20231227092509.png",
     "未命名.canvas"
   ]
