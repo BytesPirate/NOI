@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "1f4217f9799a5d0d",
+        "id": "552a7ab06c6665f4",
         "type": "tabs",
         "children": [
           {
-            "id": "e631490b2a3860c5",
+            "id": "c4cdccbb53c33def",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Daily/2024-03-13.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Daily/2024-03-13.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Daily/2024-03-13.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -118,11 +124,13 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Daily/2024-03-13.md"
+              }
             }
           },
           {
-            "id": "097e83f3212c38c0",
+            "id": "1792d286a8babb07",
             "type": "leaf",
             "state": {
               "type": "tasks_timeline_view",
@@ -134,8 +142,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -147,17 +154,21 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "081000effc9cac32",
+  "active": "c4cdccbb53c33def",
   "lastOpenFiles": [
+    "Daily/2024-03-13.md",
+    "Daily/2024-03-12.md",
+    "Daily/2024-03-11.md",
+    "Devops/Others/xshell",
+    "Devops/Cloud/K8s",
+    "Devops/Cloud",
     "Devops/Basic/Environment/Java/1.Java环境的安装以及配置.md",
     "Devops/Basic/Nginx/1.Nginx的安装.md",
     "Devops/Basic/Linux/2.常见的系统基础设置.md",
     "Devops/Basic/Linux/1.系统初始化.md",
     "Devops/Basic/Linux/3.LVM磁盘格式化以及挂载.md",
     "Rust/1.Rust 基础入门/1.1 变量的绑定和解构.md",
-    "Daily/2024-03-12.md",
     "Devops/Basic/Environment/Go/1.环境安装.md",
-    "Daily/2024-03-11.md",
     "/Daily/2024-03-11.md",
     "/Daily",
     "Daily/2024, March 11 - Monday.md",
@@ -165,14 +176,11 @@
     "Devops/CI&CD/Gitlab Action",
     "Devops/CI&CD/Github Action",
     "README.md",
-    "Devops/Others/xshell关键字高亮配置.hls",
+    "Devops/Others/xshell/xshell关键字高亮配置.hls",
     "Devops/Others/xshell高亮配置.hls",
     "Devops/Others/cnblogs.hls",
     "Devops/Others",
     "Algorithm/雪花算法/雪花算法的逻辑.md",
-    "Algorithm/雪花算法/Snowflake.rs",
-    "Algorithm/雪花算法/新建 文本文档.txt",
-    "新建 文本文档.txt",
     "Algorithm/雪花算法.md",
     "Devops/Basic/Environment/Python/1.占位.md",
     "Devops/Basic/Environment/NodeJS/1.占位.md",
@@ -184,7 +192,6 @@
     "Devops/Middleware/Redis/1.占位.md",
     "Devops/Middleware/RabbitMQ/1.占位.md",
     "Devops/Middleware/Nacos/1.占位.md",
-    "Devops/Middleware/MinIO/1.占位.md",
     "Pasted image 20231227092509.png",
     "未命名.canvas"
   ]
