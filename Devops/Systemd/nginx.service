@@ -1,0 +1,13 @@
+[Unit]
+Description=nginx
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/nginx1.24/sbin/nginx -c /usr/local/nginx1.24/conf/nginx.conf
+ExecReload=/usr/local/nginx1.24/sbin/nginx -s reload
+ExecStop=/usr/local/nginx1.24/sbin/nginx -s quit
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
