@@ -13,4 +13,12 @@
 - [ ] 后端知识内容
   - [ ] Rust
 - [ ] 运维知识内容
+  - [ ] Basic
+  - [ ] CI&CD
+  - [ ] Cloud
+  - [ ] Database
+  - [ ] Middleware
+  - [ ] Monitor
+  - [ ] Others
+  - [ ] Systemd
 - [ ] 读书笔记   
