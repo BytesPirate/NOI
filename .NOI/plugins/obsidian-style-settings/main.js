@@ -7967,7 +7967,7 @@ function readBlockMapping(state, nodeIndent, flowIndent) {
 
       if (!composeNode(state, flowIndent, CONTEXT_FLOW_OUT, false, true)) {
         // Neither implicit nor explicit notation.
-        // Reading is done. GoLang to the epilogue.
+        // Reading is done. Go to the epilogue.
         break;
       }
 
