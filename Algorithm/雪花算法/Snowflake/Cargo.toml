@@ -1,8 +1,21 @@
 [package]
 name = "Snowflake"
 version = "0.1.0"
+authors = ["J1nH4ng <jinhang@14bytes.com>"]
 edition = "2021"
+license = "MIT"
+description = "Snowflake Algorithm in Rust"
+homepage = "https://github.com/BytesPirate/NOI"
+repository = "https://github.com/BytesPirate/NOI"
+keywords = ["snowflake", "algorithm"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+libc = "*"
+chrono = "0.4.35"
+
+[lib]
+name = ""
+path = "./src/lib.rs"
+crate-type = ["cdylib"]
