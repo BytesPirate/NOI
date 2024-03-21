@@ -1,0 +1,14 @@
+{
+  "name": "@vue-monorepo-project-example/root",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A repository about starting from scratch for monorepo, fastify, Phaser, colyseus, and threejs.",
+  "author": "J1nH4ng",
+  "license": "MIT",
+  "scripts": {
+    "commit": "cz"
+  },
+  "devDependencies": {
+
+  }
+}
