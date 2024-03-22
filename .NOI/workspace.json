@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "552a7ab06c6665f4",
+        "id": "d17ed3a3ad945e6c",
         "type": "tabs",
         "children": [
           {
-            "id": "c4cdccbb53c33def",
+            "id": "0cc5c6560588c215",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Daily/2024-03-13.md",
+                "file": "Note/Java架构师笔记/高并发设计40问/1.基础篇/3.提高系统性能.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Daily/2024-03-13.md",
+                "file": "Note/Java架构师笔记/高并发设计40问/1.基础篇/3.提高系统性能.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Daily/2024-03-13.md",
+                "file": "Note/Java架构师笔记/高并发设计40问/1.基础篇/3.提高系统性能.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -125,12 +125,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Daily/2024-03-13.md"
+                "file": "Note/Java架构师笔记/高并发设计40问/1.基础篇/3.提高系统性能.md"
               }
             }
           },
           {
-            "id": "1792d286a8babb07",
+            "id": "e7d85613c3664d33",
             "type": "leaf",
             "state": {
               "type": "tasks_timeline_view",
@@ -142,7 +142,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -154,8 +155,13 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "c4cdccbb53c33def",
+  "active": "0cc5c6560588c215",
   "lastOpenFiles": [
+    "Note/Java架构师笔记/高并发设计40问/1.基础篇/2.为什么要做架构分层.md",
+    "Note/Java架构师笔记/高并发设计40问/1.基础篇/1.高并发系统的设计方法.md",
+    "Backend/Rust/0.Rust 基本问题/1.Rust 换源.md",
+    "Daily/2024-03-22.md",
+    "README.md",
     "Daily/2024-03-13.md",
     "Daily/2024-03-12.md",
     "Daily/2024-03-11.md",
@@ -175,7 +181,6 @@
     "Inbox.md",
     "Devops/CI&CD/Gitlab Action",
     "Devops/CI&CD/Github Action",
-    "README.md",
     "Devops/Others/xshell/xshell关键字高亮配置.hls",
     "Devops/Others/xshell高亮配置.hls",
     "Devops/Others/cnblogs.hls",
@@ -188,10 +193,6 @@
     "Devops/Monitor/Altermanager/1.占位.md",
     "Devops/CI&CD/Jenkins/1.占位.md",
     "Devops/Database/Mysql/1.占位.md",
-    "Devops/Middleware/Supervisor/1.占位.md",
-    "Devops/Middleware/Redis/1.占位.md",
-    "Devops/Middleware/RabbitMQ/1.占位.md",
-    "Devops/Middleware/Nacos/1.占位.md",
     "Pasted image 20231227092509.png",
     "未命名.canvas"
   ]
