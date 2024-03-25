@@ -2,4 +2,4 @@
 .idea
 
 # 项目文件忽略
-/Frontend/*/*/node_modules
+/Web/Frontend/*/*/node_modules
