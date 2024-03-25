@@ -1,1 +1,14 @@
-name: hexo-github-actions
+name: Deploy Hexo 2 GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  hexo-deployment:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+
+    steps:
