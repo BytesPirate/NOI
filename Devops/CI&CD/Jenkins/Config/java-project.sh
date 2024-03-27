@@ -52,8 +52,8 @@ case "${METHOD}" in
         ansible "${SERVER}" -m file -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/${JOB_NAME} dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
         # 验证 Supervisor 文件是否存在
         ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_1}.ini ]]" -u nginx \
-        && ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_2}.ini ]]" -u nginx \
-        && ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_3}.ini ]]" -u nginx \
+          && ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_2}.ini ]]" -u nginx \
+          && ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_3}.ini ]]" -u nginx \
 
         ansible "${SERVER}" -m shell -a "sudo supervisorctl update" -u nginx
         ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{$CHILD_MODULE_NAME_1,$CHILD_MODULE_NAME_2,$CHILD_MODULE_NAME_3}" -u nginx
