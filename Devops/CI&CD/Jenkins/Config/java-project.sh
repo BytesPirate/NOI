@@ -44,19 +44,22 @@ case "${METHOD}" in
         mvn clean package -Dmaven.test.skip=true
         echo "编译完成"
         for target_name in "${CHILD_MODULE_MEMBERS[@]}"; do
-          /usr/bin/cp -rf ./"${target_name}"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${JOB_NAME}"-"${target_name}".jar
+          /usr/bin/cp -rf ./"${target_name}"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${target_name}".jar
         done
 
         echo "开始同步至应用服务器"
         ansible "${SERVER}" -m synchronize -a "src=../deploy_tmp/${JOB_NAME} dest=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/ compress=yes delete=yes recursive=yes dirs=yes archive=no" -u nginx
         ansible "${SERVER}" -m file -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/${JOB_NAME} dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
+        # 验证 Supervisor 文件是否存在
         ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_1}.ini ]]" -u nginx \
         && ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_2}.ini ]]" -u nginx \
         && ansible "${SERVER}" -m shell -a "[[ -f /etc/supervisord.d/${JOB_NAME}_${CHILD_MODULE_NAME_3}.ini ]]" -u nginx \
+
         ansible "${SERVER}" -m shell -a "sudo supervisorctl update" -u nginx
-        ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{ $CHILD_MODULE_NAME_1, $CHILD_MODULE_NAME_2, $CHILD_MODULE_NAME_3 }" -u nginx
+        ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{$CHILD_MODULE_NAME_1,$CHILD_MODULE_NAME_2,$CHILD_MODULE_NAME_3}" -u nginx
         echo "部署完成"
       ;;
+      # TODO: 需要修改单模块打包时的拷贝目录方式
       "only ${CHILD_MODULE_NAME_1}")
         mvn clean package -pl "${CHILD_MODULE_NAME_1}" -am
         echo "编译 ${CHILD_MODULE_NAME_1} 完成"
