@@ -1,5 +1,6 @@
 # 编辑器忽略
 .idea
+.vscode
 
 # 项目文件忽略
 /Web/Frontend/*/*/node_modules
