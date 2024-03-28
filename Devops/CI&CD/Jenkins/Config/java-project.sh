@@ -6,7 +6,7 @@
 # Date: March 26, 2024
 #
 # Last Editor: J1n H4ng<jinhang@mail.14bytes.com>
-# Last Modified: March 27, 2024
+# Last Modified: March 28, 2024
 #
 # Description: Jenkins Java Project Shell
 #
@@ -30,18 +30,18 @@ CHILD_MODULE_NAME_3=""
 CHILD_MODULE_MEMBERS=("${CHILD_MODULE_NAME_1}" "${CHILD_MODULE_NAME_2}" "${CHILD_MODULE_NAME_3}")
 
 # 前置条件：构建目录
+function prepare_directories() {
+  # Jenkins 服务器通过 ansible 创建项目 releases 目录
+  ansible "${SERVER}" -m file -a "path=${DIR}/releases/${JOB_NAME} state=directory" -u nginx
+  # Jenkins 服务器通过 ansible 创建项目 content 目录
+  ansible "${SERVER}" -m file -a "path=${DIR}/content/${JOB_NAME} state=directory" -u nginx
+  # Jenkins 服务器创建部署临时目录
+  mkdir -p ../deploy_tmp/"${JOB_NAME}"
+  # 创建项目的 env 文件
+  [[ ! -f ."${JOB_NAME}".env ]] && touch ."${JOB_NAME}".en
+}
 
-# Jenkins 服务器通过 ansible 创建项目 releases 目录
-ansible "${SERVER}" -m file -a "path=${DIR}/releases/${JOB_NAME} state=directory" -u nginx
-# Jenkins 服务器通过 ansible 创建项目 content 目录
-ansible "${SERVER}" -m file -a "path=${DIR}/content/${JOB_NAME} state=directory" -u nginx
-# Jenkins 服务器创建部署临时目录
-mkdir -p ../deploy_tmp/"${JOB_NAME}"
-# 创建项目的 env 文件
-[[ ! -f ."${JOB_NAME}".env ]] && touch ."${JOB_NAME}".en
-
-# TODO: 抽象函数复用
-function BUILD_ALL_MODULES() {
+function build_all_modules() {
   mvn clean package -Dmaven.test.skip=true
   echo "编译完成"
   for target_name in "${CHILD_MODULE_MEMBERS[@]}"; do
@@ -50,34 +50,30 @@ function BUILD_ALL_MODULES() {
   echo "开始同步至应用服务器"
   ansible "${SERVER}" -m synchronize -a "src=../deploy_tmp/${JOB_NAME} dest=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/ compress=yes delete=yes recursive=yes dirs=yes archive=no" -u nginx
   ansible "${SERVER}" -m file -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/${JOB_NAME} dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
-  ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{$CHILD_MODULE_NAME_1,$CHILD_MODULE_NAME_2,$CHILD_MODULE_NAME_3}" -u nginx
+  ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{${CHILD_MODULE_MEMBERS[0],${CHILD_MODULE_MEMBERS[1]},${CHILD_MODULE_MEMBERS[2]}}" -u nginx
   echo "部署完成"
 }
 
-function BUILD_SINGLE_MODULE() {
+function build_single_module() {
   mvn clean package -pl "$1" -am
   echo "编译 $1 完成"
   /bin/cp -rf ./"$1"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${JOB_NAME}"-"$1".jar
   echo "开始同步至应用服务器"
   ansible "${SERVER}" -m synchronize -a "src=../deploy_tmp/${JOB_NAME} dest=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/ compress=yes delete=yes recursive=yes dirs=yes archive=no" -u nginx
   ansible "${SERVER}" -m file -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME} dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
-  ansibel "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-$1" -u nginx
+  ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-$1" -u nginx
 }
 
 case "${METHOD}" in
   "deploy")
     case "${MODULE_NAME}" in
       "all")
-        BUILD_ALL_MODULES
       ;;
       "only ${CHILD_MODULE_NAME_1}")
-        BUILD_SINGLE_MODULE "${CHILD_MODULE_NAME_1}"
       ;;
       "only ${CHILD_MODULE_NAME_2}")
-        BUILD_SINGLE_MODULE "${CHILD_MODULE_NAME_2}"
       ;;
       "only ${CHILD_MODULE_NAME_3}")
-        BUILD_SINGLE_MODULE "${CHILD_MODULE_NAME_3}"
       ;;
     esac
   ;;
