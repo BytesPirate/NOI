@@ -43,7 +43,6 @@ CHILD_MODULE_NAME_3=""
 # PROD_NAME="prod"
 PROD_NAME="${PROD_NAME:test}"
 
-# DONE：移动位置，使得逻辑清除
 # 构建一个数组，便于遍历特定目录拷贝 jar 包到特定目录下，新增 CHILD_MODULE_NAME 时会自动添加
 CHILD_MODULE_MEMBERS=()
 for i in {1..10}; do
@@ -65,11 +64,8 @@ mkdir -p ../deploy_tmp/"${JOB_NAME}"
 # 创建项目的 env 文件
 [[ ! -f ."${JOB_NAME}".env ]] && touch ."${JOB_NAME}".env
 
-# 构建单个模块函数
-function build_single_module() {
-  mvn clean package -pl "$1" -am
-  echo "编译 $1 完成"
-  /bin/cp -rf ./"$1"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${JOB_NAME}"-"$1".jar
+# 同步文件目录
+function sync_and_link_package() {
   echo "开始同步至应用服务器"
   ansible "${SERVER}" -m synchronize \
     -a "src=../deploy_tmp/${JOB_NAME} \
@@ -78,13 +74,16 @@ function build_single_module() {
   ansible "${SERVER}" -m file \
     -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME} \
     dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
-  ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-$1" -u nginx
 }
 
-# 同步文件目录
-# TODO：同步文件目录函数编写
-function sync_package() {
-  echo "同步文件目录"
+# 构建单个模块函数
+function build_single_module() {
+  mvn clean package -pl "$1" -am
+  echo "编译 $1 完成"
+  /bin/cp -rf ./"$1"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${JOB_NAME}"-"$1".jar
+  echo "开始同步至应用服务器"
+  sync_and_link_package
+  ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-$1" -u nginx
 }
 
 # TODO: 整体部署逻辑完善
@@ -102,18 +101,23 @@ if [[ "${METHOD}" == "deploy" ]]; then
         -a "src=../deploy_tmp/${JOB_NAME} \
         dest=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/ \
         compress=yes delete=yes recursive=yes dirs=yes archive=no" -u nginx
-      ansible "${SERVER}" -m file -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/${JOB_NAME} dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
-      ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{${CHILD_MODULE_MEMBERS[0],${CHILD_MODULE_MEMBERS[1]},${CHILD_MODULE_MEMBERS[2]}}" -u nginx
+      ansible "${SERVER}" -m file \
+        -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/${JOB_NAME} \
+        dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
+      # TODO：调用服务器上 /data/scripts/jenkins 目录下的 create_supervisord_conf.sh 脚本
+      ansible "${SERVER}" -m shell \
+      -a "sudo supervisorctl restart ${JOB_NAME}-{${CHILD_MODULE_MEMBERS[0],${CHILD_MODULE_MEMBERS[1]},${CHILD_MODULE_MEMBERS[2]}}" \
+      -u nginx
       echo "部署完成"
     ;;
     "only ${CHILD_MODULE_NAME_1}")
-    # TODO: 子模块打包逻辑
+      build_single_module "${CHILD_MODULE_NAME_1}"
     ;;
     "only ${CHILD_MODULE_NAME_2}")
-    # TODO: 子模块打包逻辑
+      build_single_module "${CHILD_MODULE_NAME_2}"
     ;;
     "only ${CHILD_MODULE_NAME_3}")
-    # TODO: 子模块打包逻辑
+      build_single_module "${CHILD_MODULE_NAME_3}"
     ;;
   esac
 else
@@ -131,5 +135,3 @@ fi
 
 # TODO：调用未使用，需在编写完成后按执行顺序摆放
 # 调用服务器上 /data/scripts/jenkins 目录下的 clean_old_build.sh 脚本
-
-# 调用服务器上 /data/scripts/jenkins 目录下的 create_supervisord_conf.sh 脚本
