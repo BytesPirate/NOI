@@ -86,9 +86,9 @@ function build_single_module() {
   ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-$1" -u nginx
 }
 
-# TODO: 整体部署逻辑完善
 # 部署项目逻辑
 if [[ "${METHOD}" == "deploy" ]]; then
+  #TODO: 调用服务器上 /data/scripts/jenkins 目录下的 clean_old_build.sh 脚本
   case "${MODULE_NAME}" in
     "all")
       mvn clean package -Dmaven.test.skip=true
@@ -129,9 +129,3 @@ else
     echo "已回滚至版本${ROLLBACK_VERSION}";else echo 'folder is not exist';fi" -u nginx
   ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-*" -u nginx
 fi
-
-
-
-
-# TODO：调用未使用，需在编写完成后按执行顺序摆放
-# 调用服务器上 /data/scripts/jenkins 目录下的 clean_old_build.sh 脚本
