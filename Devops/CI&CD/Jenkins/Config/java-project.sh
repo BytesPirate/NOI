@@ -13,7 +13,7 @@
 # MODULE_NAME: 需要编译的模块名称
 # 选项有 MODULE_NAME 1, MODULE_NAME 2, WITHOUT MODULE_NAME 1, WITHOUT MODULE_NAME 2
 # METHOD: deploy or rollback
-#
+
 # 需要部署到的服务器地址或服务器组别名（在 Jenkins 所在的服务器中的 /etc/ansible/hosts 中查看）
 SERVER="[target IP]" # OR SERVER=(target IP1, target IP2) or SERVER=(target group name) like SERVER="web"
 
@@ -21,32 +21,44 @@ SERVER="[target IP]" # OR SERVER=(target IP1, target IP2) or SERVER=(target grou
 # DIR=""
 DIR="${DIR:-/data}"
 
-# MODULE_NAME 需要编译的模块名称
+# MODULE_NAME 需要编译的模块名称，需要新模块时添加 CHILD_MODULE_NAME_4，以此类推
 CHILD_MODULE_NAME_1=""
 CHILD_MODULE_NAME_2=""
 CHILD_MODULE_NAME_3=""
 
+# 构建一个数组，便于遍历特定目录拷贝 jar 包到特定目录下
 CHILD_MODULE_MEMBERS=("${CHILD_MODULE_NAME_1}" "${CHILD_MODULE_NAME_2}" "${CHILD_MODULE_NAME_3}")
+
+# 前置条件：构建目录
+
+# Jenkins 服务器通过 ansible 创建项目 releases 目录
+ansible "${SERVER}" -m file -a "path=${DIR}/releases/${JOB_NAME} state=directory" -u nginx
+# Jenkins 服务器通过 ansible 创建项目 content 目录
+ansible "${SERVER}" -m file -a "path=${DIR}/content/${JOB_NAME} state=directory" -u nginx
+# Jenkins 服务器创建部署临时目录
+mkdir -p ../deploy_tmp/"${JOB_NAME}"
+# 创建项目的 env 文件
+[[ ! -f ."${JOB_NAME}".env ]] && touch ."${JOB_NAME}".en
+
+# TODO: 抽象函数复用
+function BUILD_ALL_MODULES() {
+  mvn clean package -Dmaven.test.skip=true
+  echo "编译完成"
+  for target_name in "${CHILD_MODULE_MEMBERS[@]}"; do
+    /usr/bin/cp -rf ./"${target_name}"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${target_name}".jar
+  done
+}
+
+function BUILD_SINGLE_MODULE() {
+  mvn clean package -pl "$1" -am
+  echo "编译 $1 完成"
+  /bin/cp -rf ./"$1"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${JOB_NAME}"-"$1".jar
+}
 
 case "${METHOD}" in
   "deploy")
-    # Jenkins 服务器通过 ansible 创建项目 releases 目录
-    ansible "${SERVER}" -m file -a "path=${DIR}/releases/${JOB_NAME} state=directory" -u nginx
-    # Jenkins 服务器通过 ansible 创建项目 content 目录
-    ansible "${SERVER}" -m file -a "path=${DIR}/content/${JOB_NAME} state=directory" -u nginx
-    # Jenkins 服务器创建部署临时目录
-    mkdir -p ../deploy_tmp/"${JOB_NAME}"
-    # 创建项目的 env 文件
-    [[ ! -f ."${JOB_NAME}".env ]] && touch ."${JOB_NAME}".env
-
     case "${MODULE_NAME}" in
       "all")
-        mvn clean package -Dmaven.test.skip=true
-        echo "编译完成"
-        for target_name in "${CHILD_MODULE_MEMBERS[@]}"; do
-          /usr/bin/cp -rf ./"${target_name}"/target/*.jar ../deploy_tmp/"${JOB_NAME}"/"${target_name}".jar
-        done
-
         echo "开始同步至应用服务器"
         ansible "${SERVER}" -m synchronize -a "src=../deploy_tmp/${JOB_NAME} dest=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/ compress=yes delete=yes recursive=yes dirs=yes archive=no" -u nginx
         ansible "${SERVER}" -m file -a "src=${DIR}/releases/${JOB_NAME}/${BUILD_DISPLAY_NAME}/${JOB_NAME} dest=${DIR}/content/${JOB_NAME} state=link" -u nginx
@@ -59,7 +71,6 @@ case "${METHOD}" in
         ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-{$CHILD_MODULE_NAME_1,$CHILD_MODULE_NAME_2,$CHILD_MODULE_NAME_3}" -u nginx
         echo "部署完成"
       ;;
-      # TODO: 需要修改单模块打包时的拷贝目录方式
       "only ${CHILD_MODULE_NAME_1}")
         mvn clean package -pl "${CHILD_MODULE_NAME_1}" -am
         echo "编译 ${CHILD_MODULE_NAME_1} 完成"
