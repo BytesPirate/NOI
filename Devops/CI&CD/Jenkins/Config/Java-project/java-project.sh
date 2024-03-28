@@ -8,7 +8,8 @@
 # Last Editor: J1n H4ng<jinhang@mail.14bytes.com>
 # Last Modified: March 28, 2024
 #
-# Description: Jenkins Java Project Shell
+# Description: Jenkins 打包发布 Java 项目脚本，包含清理旧的构建，
+#              同时拷贝新的构建的 supervisor 的配置文件到服务器上。
 #
 # MODULE_NAME: 需要编译的模块名称
 # 选项有：
@@ -37,11 +38,7 @@ DIR="${DIR:-/data}"
 CHILD_MODULE_NAME_1=""
 CHILD_MODULE_NAME_2=""
 CHILD_MODULE_NAME_3=""
-# TODO: 如何优化掉这一部分内容，缩短文件行数
-# CHILD_MODULE_PORT 子模块占用的端口号，便于 Supervisord 进行管理
-CHILD_MODULE_PORT_1=""
-CHILD_MODULE_PORT_2=""
-CHILD_MODULE_PORT_3=""
+
 # PROD_NAME 是否为生产环境，默认为测试环境
 # PROD_NAME="prod"
 PROD_NAME="${PROD_NAME:test}"
@@ -84,29 +81,11 @@ function build_single_module() {
   ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-$1" -u nginx
 }
 
-# TODO：理清 supervisor 配置文件的组成，以及如何调用，传递未使用 port 进入
-function create_supervisord_conf() {
-  echo "创建 supervisord 配置文件"
-}
-
 # 同步文件目录
 # TODO：同步文件目录函数编写
 function sync_package() {
   echo "同步文件目录"
 }
-
-# TODO：需要理清逻辑以及调用方式
-# 清除旧构建函数
-function clean_old_package() {
-  total=$(ls | wc -l) #取出当前项目总构建数量
-  if [ "${total}" -gt 5 ]; then #只对总构建数量超过10个的项目进行操作
-      del_appnum=$(expr "${total}" - 5) #判断需要删除的构建数量
-      del_applist=$(ls -tr | head -${del_appnum}) #列出需要删除的构建的列表
-      echo -e "以下发布将被删除：\n ${del_applist}"
-      sudo rm -rf "${del_applist}"
-  fi
-}
-
 
 # TODO: 整体部署逻辑完善
 # 部署项目逻辑
@@ -146,3 +125,11 @@ else
     echo "已回滚至版本${ROLLBACK_VERSION}";else echo 'folder is not exist';fi" -u nginx
   ansible "${SERVER}" -m shell -a "sudo supervisorctl restart ${JOB_NAME}-*" -u nginx
 fi
+
+
+
+
+# TODO：调用未使用，需在编写完成后按执行顺序摆放
+# 调用服务器上 /data/scripts/jenkins 目录下的 clean_old_build.sh 脚本
+
+# 调用服务器上 /data/scripts/jenkins 目录下的 create_supervisord_conf.sh 脚本
